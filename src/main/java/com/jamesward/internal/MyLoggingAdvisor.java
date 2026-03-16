@@ -11,7 +11,7 @@ public class MyLoggingAdvisor implements BaseAdvisor {
 
     @Override
     public int getOrder() {
-        return 0;
+        return 999999999;
     }
 
     @Override
@@ -21,7 +21,9 @@ public class MyLoggingAdvisor implements BaseAdvisor {
 
         if (request.prompt().getOptions() instanceof ToolCallingChatOptions toolOptions) {
             var tools = toolOptions.getToolCallbacks().stream().map(tc -> tc.getToolDefinition().name()).toList();
-            IO.println("\nTOOLS: " + ModelOptionsUtils.toJsonString(tools));
+            if (!tools.isEmpty()) {
+                IO.println("\nTOOLS: " + ModelOptionsUtils.toJsonString(tools));
+            }
         }
 
         return request;

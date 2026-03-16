@@ -59,6 +59,16 @@ public class BasicChat {
     }
 
     @Bean
+    @Profile("systemPrompt")
+    CommandLineRunner runSystemPrompt(ChatClient.Builder builder, @Qualifier("loggingAdvisors") List<Advisor> loggingAdvisors) {
+        return _ -> {
+            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultSystem("You are a wookie").build();
+            var resp = chatClient.prompt().user("say hello").call().content();
+            IO.println(resp);
+        };
+    }
+
+    @Bean
     @Profile("noTools")
     CommandLineRunner runNoTools(ChatClient.Builder builder, @Qualifier("loggingAdvisors") List<Advisor> loggingAdvisors) {
         return _ -> {
