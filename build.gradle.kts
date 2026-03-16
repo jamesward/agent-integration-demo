@@ -32,3 +32,40 @@ dependencyManagement {
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
     standardInput = System.`in`
 }
+
+val profiles = listOf(
+    "default",
+    "structuredOutput",
+    "streaming",
+    "systemPrompt",
+    "noTools",
+    "noMemory",
+    "inMemory",
+    "ragDocuments",
+    "ragDomain",
+    "preloadSkill",
+    "ondemandSkill",
+    "skillsjars",
+    "basicTools",
+    "mcpTools",
+    "hitl",
+)
+
+for (profile in profiles) {
+    tasks.register<org.springframework.boot.gradle.tasks.run.BootRun>(profile) {
+        group = "application"
+        description = "Runs with the $profile Spring profile"
+        mainClass = "com.jamesward.Application"
+        classpath = sourceSets["main"].runtimeClasspath
+        standardInput = System.`in`
+        systemProperty("spring.profiles.active", profile)
+    }
+    tasks.register<org.springframework.boot.gradle.tasks.run.BootRun>("${profile}Debug") {
+        group = "application"
+        description = "Runs with the $profile and debug Spring profiles"
+        mainClass = "com.jamesward.Application"
+        classpath = sourceSets["main"].runtimeClasspath
+        standardInput = System.`in`
+        systemProperty("spring.profiles.active", "$profile,debug")
+    }
+}
