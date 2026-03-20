@@ -23,7 +23,7 @@ public class BasicSkills {
         return _ -> {
             var chatClient = builder.defaultAdvisors(loggingAdvisors).build();
 
-            var dogSkill = new SystemMessage(new ClassPathResource("myskills/dog/SKILL.md"));
+            var dogSkill = new SystemMessage(new ClassPathResource("myskills/dogs/SKILL.md"));
 
             var userMessage = new UserMessage("What does the Chihuahua say?");
 
