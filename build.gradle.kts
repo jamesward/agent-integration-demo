@@ -11,7 +11,7 @@ java {
 }
 
 dependencies {
-    implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0-M3"))
+    implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0-M4"))
     runtimeOnly("org.springframework.boot:spring-boot-starter-jackson")
     implementation("org.springframework.ai:spring-ai-starter-model-bedrock")
     implementation("org.springframework.ai:spring-ai-starter-model-bedrock-converse")
