@@ -55,7 +55,7 @@ public class BasicSkills {
 
             var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultToolCallbacks(skillsTool).build();
 
-            var resp = chatClient.prompt().user("What does the Chihuahua say?").call().content();
+            var resp = chatClient.prompt().user("Do Chihuahuas have demonic tendencies?").call().content();
 
             IO.println(resp);
         };
