@@ -22,7 +22,7 @@ dependencies {
     implementation("org.springaicommunity:spring-ai-agent-utils:0.7.0")
     implementation("org.springaicommunity:tool-search-tool:2.1.0")
     implementation("org.springaicommunity:tool-searcher-vectorstore:2.1.0")
-    runtimeOnly("com.jamesward:pooch-palace:0.0.3")
+    runtimeOnly("com.jamesward:pooch-palace:0.0.4")
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
