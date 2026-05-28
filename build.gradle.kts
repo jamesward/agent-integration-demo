@@ -19,7 +19,7 @@ dependencies {
     implementation("org.springframework.ai:spring-ai-starter-model-chat-memory")
     implementation("org.springframework.ai:spring-ai-advisors-vector-store")
     implementation("org.springframework.ai:spring-ai-rag")
-    implementation("org.springaicommunity:spring-ai-agent-utils:0.7.0")
+    implementation("org.springaicommunity:spring-ai-agent-utils:0.8.0")
     implementation("org.springaicommunity:tool-search-tool:2.1.0")
     implementation("org.springaicommunity:tool-searcher-vectorstore:2.1.0")
     runtimeOnly("com.jamesward:pooch-palace:0.0.3")
