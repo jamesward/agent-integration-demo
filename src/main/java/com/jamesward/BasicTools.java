@@ -3,13 +3,13 @@ package com.jamesward;
 
 import com.jamesward.internal.AccountData;
 import com.jamesward.internal.ManyTools;
-import org.springaicommunity.tool.search.ToolSearchToolCallAdvisor;
-import org.springaicommunity.tool.search.ToolSearcher;
-import org.springaicommunity.tool.searcher.VectorToolSearcher;
+import org.springframework.ai.chat.client.advisor.toolsearch.ToolSearchToolCallingAdvisor;
+import org.springframework.ai.tool.toolsearch.index.vectorstore.VectorToolIndex;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.ToolCallAdvisor;
+import org.springframework.ai.chat.client.advisor.ToolCallingAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.annotation.Tool;
@@ -51,7 +51,7 @@ public class BasicTools {
     @Profile("mcpTools")
     CommandLineRunner runMcp(ChatClient.Builder builder, @Qualifier("loggingAdvisors") List<Advisor> loggingAdvisors, ToolCallbackProvider toolCallbackProvider) {
         return _ -> {
-            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultToolCallbacks(toolCallbackProvider).defaultTools(this).build();
+            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultTools(toolCallbackProvider, this).build();
 
             var resp = chatClient.prompt().user("What is the latest version of the org.webjars:webjars-locator-lite library?").call().content();
 
@@ -65,15 +65,15 @@ public class BasicTools {
         return _ -> {
             var vectorStore = SimpleVectorStore.builder(embeddingModel).build();
 
-            var toolSearcher = new VectorToolSearcher(vectorStore);
+            var toolIndex = new VectorToolIndex(vectorStore);
 
-            var toolSearchAdvisor = ToolSearchToolCallAdvisor.builder()
-                    .toolSearcher(toolSearcher)
+            var toolSearchAdvisor = ToolSearchToolCallingAdvisor.builder()
+                    .toolIndex(toolIndex)
                     .maxResults(1)
                     .build();
 
             var advisors = new java.util.ArrayList<>(loggingAdvisors);
-            advisors.removeIf(a -> a instanceof ToolCallAdvisor); // workaround for ToolCallAdvisor & ToolSearchTool incompatibility
+            advisors.removeIf(a -> a instanceof ToolCallingAdvisor); // remove the debug ToolCallingAdvisor; the search advisor replaces it
             advisors.add(toolSearchAdvisor);
 
             var chatClient = builder
@@ -81,7 +81,9 @@ public class BasicTools {
                     .defaultAdvisors(advisors)
                     .build();
 
-            var resp = chatClient.prompt().user("get me a random string 8 characters long").call().content();
+            var resp = chatClient.prompt().user("get me a random string 8 characters long")
+                    .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, "tool-search"))
+                    .call().content();
 
             IO.println(resp);
         };

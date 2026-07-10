@@ -3,6 +3,7 @@ package com.jamesward;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -44,11 +45,15 @@ public class BasicMemory {
 
             var chatClient = builder.defaultAdvisors(advisors).build();
 
-            var resp1 = chatClient.prompt().user("My name is James").call().content();
+            var resp1 = chatClient.prompt().user("My name is James")
+                    .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, "james"))
+                    .call().content();
 
             IO.println(resp1);
 
-            var resp2 = chatClient.prompt().user("What is my name?").call().content();
+            var resp2 = chatClient.prompt().user("What is my name?")
+                    .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, "james"))
+                    .call().content();
 
             IO.println(resp2);
         };

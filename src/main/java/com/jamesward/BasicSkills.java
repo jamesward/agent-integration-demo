@@ -39,7 +39,7 @@ public class BasicSkills {
         return _ -> {
             var skillsTool = SkillsTool.builder().addSkillsResource(new ClassPathResource("myskills")).build();
 
-            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultToolCallbacks(skillsTool).build();
+            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultTools(skillsTool).build();
 
             var resp = chatClient.prompt().user("What does the Chihuahua say?").call().content();
 
@@ -53,7 +53,7 @@ public class BasicSkills {
         return _ -> {
             var skillsTool = SkillsTool.builder().addSkillsResource(new ClassPathResource("META-INF/skills")).build();
 
-            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultToolCallbacks(skillsTool).build();
+            var chatClient = builder.defaultAdvisors(loggingAdvisors).defaultTools(skillsTool).build();
 
             var resp = chatClient.prompt().user("Do Chihuahuas have demonic tendencies?").call().content();
 

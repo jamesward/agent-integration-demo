@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "4.0.5"
+    id("org.springframework.boot") version "4.1.0"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -11,18 +11,18 @@ java {
 }
 
 dependencies {
-    implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0-M4"))
+    implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0"))
     runtimeOnly("org.springframework.boot:spring-boot-starter-jackson")
     implementation("org.springframework.ai:spring-ai-starter-model-bedrock")
     implementation("org.springframework.ai:spring-ai-starter-model-bedrock-converse")
     implementation("org.springframework.ai:spring-ai-starter-mcp-client")
     implementation("org.springframework.ai:spring-ai-starter-model-chat-memory")
-    implementation("org.springframework.ai:spring-ai-advisors-vector-store")
+    implementation("org.springframework.ai:spring-ai-vector-store-advisor")
     implementation("org.springframework.ai:spring-ai-rag")
-    implementation("org.springaicommunity:spring-ai-agent-utils:0.7.0")
-    implementation("org.springaicommunity:tool-search-tool:2.1.0")
-    implementation("org.springaicommunity:tool-searcher-vectorstore:2.1.0")
-    runtimeOnly("com.jamesward:pooch-palace:0.0.3")
+    implementation("org.springframework.ai:spring-ai-tool-search-advisor")
+    implementation("org.springframework.ai:spring-ai-tool-search-tool")
+    implementation("org.springaicommunity:spring-ai-agent-utils:0.10.0")
+    runtimeOnly("com.jamesward:pooch-palace:0.0.4")
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {

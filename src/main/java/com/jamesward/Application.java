@@ -1,7 +1,7 @@
 package com.jamesward;
 
 import com.jamesward.internal.MyLoggingAdvisor;
-import org.springframework.ai.chat.client.advisor.ToolCallAdvisor;
+import org.springframework.ai.chat.client.advisor.ToolCallingAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class Application {
     @Profile("debug")
     List<Advisor> debugLoggingAdvisor() {
         return List.of(
-                ToolCallAdvisor.builder()
+                ToolCallingAdvisor.builder()
                         .conversationHistoryEnabled(true)
                         .build(),
                 new MyLoggingAdvisor()
