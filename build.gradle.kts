@@ -21,7 +21,7 @@ dependencies {
     implementation("org.springframework.ai:spring-ai-rag")
     implementation("org.springframework.ai:spring-ai-tool-search-advisor")
     implementation("org.springframework.ai:spring-ai-tool-search-tool")
-    implementation("org.springaicommunity:spring-ai-agent-utils:0.10.0")
+    implementation("org.springaicommunity:spring-ai-agent-utils:0.12.0")
     runtimeOnly("com.jamesward:pooch-palace:0.0.4")
 }
 
