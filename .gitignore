@@ -38,3 +38,6 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+# Agent Skills extracted by the build
+/.kiro/skills/
