@@ -1,5 +1,5 @@
 plugins {
-    id("com.skillsjars.gradle-plugin") version "0.1.4"
+    id("com.skillsjars.gradle-plugin") version "0.2.0"
     java
     id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
@@ -22,7 +22,7 @@ dependencies {
     implementation("org.springframework.ai:spring-ai-rag")
     implementation("org.springframework.ai:spring-ai-tool-search-advisor")
     implementation("org.springframework.ai:spring-ai-tool-search-tool")
-    implementation("org.springaicommunity:spring-ai-agent-utils:0.12.0")
+    implementation("org.springaicommunity:spring-ai-agent-utils:0.13.0")
     runtimeOnly("com.jamesward:pooch-palace:0.0.4")
 }
 
@@ -70,9 +70,13 @@ for (profile in profiles) {
 
 // Agent Skills, extracted with ./gradlew extractSkillsJars
 dependencies {
-    skill("com.jamesward:skills:0.0.10")
+    skill("com.jamesward:skills:0.0.13")
 }
 
 skillsjars {
     outputDir.set(layout.projectDirectory.dir(".kiro/skills"))
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.addAll(listOf("-Xlint:all", "-Werror"))
 }
