@@ -12,7 +12,7 @@ java {
 }
 
 dependencies {
-    implementation(platform("org.springframework.ai:spring-ai-bom:2.0.1"))
+    implementation(platform("org.springframework.ai:spring-ai-bom:2.0.2"))
     runtimeOnly("org.springframework.boot:spring-boot-starter-jackson")
     implementation("org.springframework.ai:spring-ai-starter-model-bedrock")
     implementation("org.springframework.ai:spring-ai-starter-model-bedrock-converse")
@@ -70,7 +70,7 @@ for (profile in profiles) {
 
 // Agent Skills, extracted with ./gradlew extractSkillsJars
 dependencies {
-    skill("com.jamesward:skills:0.0.17")
+    skill("com.jamesward:skills:0.0.18")
 }
 
 skillsjars {
