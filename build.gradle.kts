@@ -1,7 +1,7 @@
 plugins {
     id("com.skillsjars.gradle-plugin") version "0.2.0"
     java
-    id("org.springframework.boot") version "4.1.1"
+    id("org.springframework.boot") version "4.1.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -70,7 +70,7 @@ for (profile in profiles) {
 
 // Agent Skills, extracted with ./gradlew extractSkillsJars
 dependencies {
-    skill("com.jamesward:skills:0.0.18")
+    skill("com.jamesward:skills:0.0.21")
 }
 
 skillsjars {
