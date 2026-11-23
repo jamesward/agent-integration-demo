@@ -27,3 +27,7 @@ source/doc tools for API questions. In Claude Code its tools are deferred: load 
 ## Exceptions to zen-of-projects
 
 - `./gradlew bootRun` (and any task that calls Amazon Bedrock) needs AWS credentials and is paid: never run it in the maintenance routine.
+
+## Held-back dependencies
+
+- `spring-ai-bom` stays at 2.0.2: 2.1.0 deprecates `ChatMemory`, `MessageWindowChatMemory` and `MessageChatMemoryAdvisor` for removal in 3.0.0 (replacement: `SessionService` in `spring-ai-session`, context key `MemoryAdvisor.CONVERSATION_ID`), which fails the `-Werror` build. Migrating the chat memory examples (`BasicMemory`, `BasicTools`) is a behavior change that needs a human decision.
